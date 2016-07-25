@@ -1,4 +1,3 @@
-
 //
 // Global map.js variables
 //
@@ -16,14 +15,15 @@ var notifiedPokemon = [];
 var map;
 var rawDataIsLoading = false;
 var locationMarker;
+var searchMarker;
 
-var noLabelsStyle=[{featureType:"poi",elementType:"labels",stylers:[{visibility:"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]}];
-var light2Style=[{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}];
-var darkStyle=[{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#b39964"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#181818"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"lightness":17},{"color":"#525252"}]}];
-var pGoStyle=[{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#a1f199"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"color":"#37bda2"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"color":"#37bda2"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"poi.business","elementType":"geometry.fill","stylers":[{"color":"#e4dfd9"}]},{"featureType":"poi.business","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#37bda2"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#84b09e"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#fafeb8"},{"weight":"1.25"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#5ddad6"}]}];
-var light2StyleNoLabels=[{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]}];
-var darkStyleNoLabels=[{"featureType":"all","elementType":"labels.text.fill","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#181818"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"lightness":17},{"color":"#525252"}]}];
-var pGoStyleNoLabels=[{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#a1f199"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"color":"#37bda2"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"color":"#37bda2"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"poi.business","elementType":"geometry.fill","stylers":[{"color":"#e4dfd9"}]},{"featureType":"poi.business","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#37bda2"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#84b09e"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#fafeb8"},{"weight":"1.25"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#5ddad6"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]}];
+var noLabelsStyle = [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }] }, { "featureType": "all", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }];
+var light2Style = [{ "elementType": "geometry", "stylers": [{ "hue": "#ff4400" }, { "saturation": -68 }, { "lightness": -4 }, { "gamma": 0.72 }] }, { "featureType": "road", "elementType": "labels.icon" }, { "featureType": "landscape.man_made", "elementType": "geometry", "stylers": [{ "hue": "#0077ff" }, { "gamma": 3.1 }] }, { "featureType": "water", "stylers": [{ "hue": "#00ccff" }, { "gamma": 0.44 }, { "saturation": -33 }] }, { "featureType": "poi.park", "stylers": [{ "hue": "#44ff00" }, { "saturation": -23 }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "hue": "#007fff" }, { "gamma": 0.77 }, { "saturation": 65 }, { "lightness": 99 }] }, { "featureType": "water", "elementType": "labels.text.stroke", "stylers": [{ "gamma": 0.11 }, { "weight": 5.6 }, { "saturation": 99 }, { "hue": "#0091ff" }, { "lightness": -86 }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "lightness": -48 }, { "hue": "#ff5e00" }, { "gamma": 1.2 }, { "saturation": -23 }] }, { "featureType": "transit", "elementType": "labels.text.stroke", "stylers": [{ "saturation": -64 }, { "hue": "#ff9100" }, { "lightness": 16 }, { "gamma": 0.47 }, { "weight": 2.7 }] }];
+var darkStyle = [{ "featureType": "all", "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#b39964" }, { "lightness": 40 }] }, { "featureType": "all", "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#000000" }, { "lightness": 16 }] }, { "featureType": "all", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#000000" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#000000" }, { "lightness": 17 }, { "weight": 1.2 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 20 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 21 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#000000" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#000000" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#181818" }, { "lightness": 16 }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 19 }] }, { "featureType": "water", "elementType": "geometry", "stylers": [{ "lightness": 17 }, { "color": "#525252" }] }];
+var pGoStyle = [{ "featureType": "landscape.man_made", "elementType": "geometry.fill", "stylers": [{ "color": "#a1f199" }] }, { "featureType": "landscape.natural.landcover", "elementType": "geometry.fill", "stylers": [{ "color": "#37bda2" }] }, { "featureType": "landscape.natural.terrain", "elementType": "geometry.fill", "stylers": [{ "color": "#37bda2" }] }, { "featureType": "poi.attraction", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.business", "elementType": "geometry.fill", "stylers": [{ "color": "#e4dfd9" }] }, { "featureType": "poi.business", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#37bda2" }] }, { "featureType": "road", "elementType": "geometry.fill", "stylers": [{ "color": "#84b09e" }] }, { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#fafeb8" }, { "weight": "1.25" }] }, { "featureType": "road.highway", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#5ddad6" }] }];
+var light2StyleNoLabels = [{ "elementType": "geometry", "stylers": [{ "hue": "#ff4400" }, { "saturation": -68 }, { "lightness": -4 }, { "gamma": 0.72 }] }, { "featureType": "road", "elementType": "labels.icon" }, { "featureType": "landscape.man_made", "elementType": "geometry", "stylers": [{ "hue": "#0077ff" }, { "gamma": 3.1 }] }, { "featureType": "water", "stylers": [{ "hue": "#00ccff" }, { "gamma": 0.44 }, { "saturation": -33 }] }, { "featureType": "poi.park", "stylers": [{ "hue": "#44ff00" }, { "saturation": -23 }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "hue": "#007fff" }, { "gamma": 0.77 }, { "saturation": 65 }, { "lightness": 99 }] }, { "featureType": "water", "elementType": "labels.text.stroke", "stylers": [{ "gamma": 0.11 }, { "weight": 5.6 }, { "saturation": 99 }, { "hue": "#0091ff" }, { "lightness": -86 }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "lightness": -48 }, { "hue": "#ff5e00" }, { "gamma": 1.2 }, { "saturation": -23 }] }, { "featureType": "transit", "elementType": "labels.text.stroke", "stylers": [{ "saturation": -64 }, { "hue": "#ff9100" }, { "lightness": 16 }, { "gamma": 0.47 }, { "weight": 2.7 }] }, { "featureType": "all", "elementType": "labels.text.stroke", "stylers": [{ "visibility": "off" }] }, { "featureType": "all", "elementType": "labels.text.fill", "stylers": [{ "visibility": "off" }] }, { "featureType": "all", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }];
+var darkStyleNoLabels = [{ "featureType": "all", "elementType": "labels.text.fill", "stylers": [{ "visibility": "off" }] }, { "featureType": "all", "elementType": "labels.text.stroke", "stylers": [{ "visibility": "off" }] }, { "featureType": "all", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#000000" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#000000" }, { "lightness": 17 }, { "weight": 1.2 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 20 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 21 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#000000" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#000000" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#181818" }, { "lightness": 16 }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#000000" }, { "lightness": 19 }] }, { "featureType": "water", "elementType": "geometry", "stylers": [{ "lightness": 17 }, { "color": "#525252" }] }];
+var pGoStyleNoLabels = [{ "featureType": "landscape.man_made", "elementType": "geometry.fill", "stylers": [{ "color": "#a1f199" }] }, { "featureType": "landscape.natural.landcover", "elementType": "geometry.fill", "stylers": [{ "color": "#37bda2" }] }, { "featureType": "landscape.natural.terrain", "elementType": "geometry.fill", "stylers": [{ "color": "#37bda2" }] }, { "featureType": "poi.attraction", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }] }, { "featureType": "poi.business", "elementType": "geometry.fill", "stylers": [{ "color": "#e4dfd9" }] }, { "featureType": "poi.business", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#37bda2" }] }, { "featureType": "road", "elementType": "geometry.fill", "stylers": [{ "color": "#84b09e" }] }, { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#fafeb8" }, { "weight": "1.25" }] }, { "featureType": "road.highway", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#5ddad6" }] }, { "featureType": "all", "elementType": "labels.text.stroke", "stylers": [{ "visibility": "off" }] }, { "featureType": "all", "elementType": "labels.text.fill", "stylers": [{ "visibility": "off" }] }, { "featureType": "all", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }];
 
 var selectedStyle = 'light';
 
@@ -66,7 +66,7 @@ var pokemon_sprites = {
 var StoreTypes = {
     Boolean: {
         parse: function(str) {
-            switch(str.toLowerCase()) {
+            switch (str.toLowerCase()) {
                 case '1':
                 case 'true':
                 case 'yes':
@@ -220,42 +220,43 @@ function initMap() {
         disableDoubleClickZoom: true,
         fullscreenControl: true,
         streetViewControl: false,
-		mapTypeControl: true,
-		mapTypeControlOptions: {
-          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-          position: google.maps.ControlPosition.RIGHT_TOP,
-          mapTypeIds: [
-              google.maps.MapTypeId.ROADMAP,
-              google.maps.MapTypeId.SATELLITE,
-              'nolabels_style',
-              'dark_style',
-              'style_light2',
-              'style_pgo',
-              'dark_style_nl',
-              'style_light2_nl',
-              'style_pgo_nl']
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+            position: google.maps.ControlPosition.RIGHT_TOP,
+            mapTypeIds: [
+                google.maps.MapTypeId.ROADMAP,
+                google.maps.MapTypeId.SATELLITE,
+                'nolabels_style',
+                'dark_style',
+                'style_light2',
+                'style_pgo',
+                'dark_style_nl',
+                'style_light2_nl',
+                'style_pgo_nl'
+            ]
         },
     });
 
-	var style_NoLabels = new google.maps.StyledMapType(noLabelsStyle, {name: "No Labels"});
-	map.mapTypes.set('nolabels_style', style_NoLabels);
+    var style_NoLabels = new google.maps.StyledMapType(noLabelsStyle, { name: "No Labels" });
+    map.mapTypes.set('nolabels_style', style_NoLabels);
 
-	var style_dark = new google.maps.StyledMapType(darkStyle, {name: "Dark"});
-	map.mapTypes.set('dark_style', style_dark);
+    var style_dark = new google.maps.StyledMapType(darkStyle, { name: "Dark" });
+    map.mapTypes.set('dark_style', style_dark);
 
-	var style_light2 = new google.maps.StyledMapType(light2Style, {name: "Light2"});
-	map.mapTypes.set('style_light2', style_light2);
+    var style_light2 = new google.maps.StyledMapType(light2Style, { name: "Light2" });
+    map.mapTypes.set('style_light2', style_light2);
 
-	var style_pgo = new google.maps.StyledMapType(pGoStyle, {name: "PokemonGo"});
-	map.mapTypes.set('style_pgo', style_pgo);
+    var style_pgo = new google.maps.StyledMapType(pGoStyle, { name: "PokemonGo" });
+    map.mapTypes.set('style_pgo', style_pgo);
 
-    var style_dark_nl = new google.maps.StyledMapType(darkStyleNoLabels, {name: "Dark (No Labels)"});
+    var style_dark_nl = new google.maps.StyledMapType(darkStyleNoLabels, { name: "Dark (No Labels)" });
     map.mapTypes.set('dark_style_nl', style_dark_nl);
 
-    var style_light2_nl = new google.maps.StyledMapType(light2StyleNoLabels, {name: "Light2 (No Labels)"});
+    var style_light2_nl = new google.maps.StyledMapType(light2StyleNoLabels, { name: "Light2 (No Labels)" });
     map.mapTypes.set('style_light2_nl', style_light2_nl);
 
-    var style_pgo_nl = new google.maps.StyledMapType(pGoStyleNoLabels, {name: "PokemonGo (No Labels)"});
+    var style_pgo_nl = new google.maps.StyledMapType(pGoStyleNoLabels, { name: "PokemonGo (No Labels)" });
     map.mapTypes.set('style_pgo_nl', style_pgo_nl);
 
     map.addListener('maptypeid_changed', function(s) {
@@ -268,7 +269,7 @@ function initMap() {
     createSearchMarker();
     addMyLocationButton();
     initSidebar();
-    google.maps.event.addListenerOnce(map, 'idle', function(){
+    google.maps.event.addListenerOnce(map, 'idle', function() {
         updateMap();
     });
 
@@ -296,7 +297,7 @@ function createSearchMarker() {
 
     google.maps.event.addListener(searchMarker, 'dragend', function() {
         var newLocation = searchMarker.getPosition();
-        changeLocation(newLocation, 
+        changeLocation(newLocation,
             function() {
                 oldLocation = null;
             },
@@ -312,7 +313,7 @@ function createSearchMarker() {
     google.maps.event.addListener(map, 'dblclick', function(e) {
         var positionDoubleclick = e.latLng;
         var oldLocation = searchMarker.getPosition();
-        changeLocation(positionDoubleclick, 
+        changeLocation(positionDoubleclick,
             function() {
                 searchMarker.setPosition(positionDoubleclick);
             },
@@ -342,7 +343,7 @@ function initSidebar() {
         }
 
         var loc = places[0].geometry.location;
-        changeLocation(loc, 
+        changeLocation(loc,
             function() {
                 map.setCenter(loc);
                 searchMarker.setPosition(loc);
@@ -358,7 +359,9 @@ function initSidebar() {
     $('#pokemon-icon-size').val(Store.get('iconSizeModifier'));
 }
 
-function pad(number) { return number <= 99 ? ("0" + number).slice(-2) : number; }
+function pad(number) {
+    return number <= 99 ? ("0" + number).slice(-2) : number;
+}
 
 function pokemonLabel(name, disappear_time, id, latitude, longitude, encounter_id) {
     disappear_date = new Date(disappear_time)
@@ -409,7 +412,7 @@ function gymLabel(team_name, team_id, gym_points, latitude, longitude) {
         var gym_prestige = [2000, 4000, 8000, 12000, 16000, 20000, 30000, 40000, 50000];
         var gym_level = 1;
         while (gym_points >= gym_prestige[gym_level - 1]) {
-                gym_level++;
+            gym_level++;
         }
         str = `
             <div><center>
@@ -486,7 +489,9 @@ function pokestopLabel(lured, last_modified, active_pokemon_id, latitude, longit
 
 function scannedLabel(last_modified) {
     scanned_date = new Date(last_modified)
-    var pad = function (number) { return number <= 99 ? ("0" + number).slice(-2) : number; }
+    var pad = function(number) {
+        return number <= 99 ? ("0" + number).slice(-2) : number;
+    }
 
     var contentstring = `
         <div>
@@ -505,7 +510,7 @@ function getGoogleSprite(index, sprite, display_height) {
         (index % sprite.columns) * sprite.icon_width * scale + 0.5,
         Math.floor(index / sprite.columns) * sprite.icon_height * scale + 0.5);
     var scaled_sprite_size = new google.maps.Size(scale * sprite.sprite_width, scale * sprite.sprite_height);
-    var scaled_icon_center_offset = new google.maps.Point(scale * sprite.icon_width/2, scale * sprite.icon_height/2)
+    var scaled_icon_center_offset = new google.maps.Point(scale * sprite.icon_width / 2, scale * sprite.icon_height / 2)
     return {
         url: sprite.filename,
         size: scaled_icon_size,
@@ -518,7 +523,7 @@ function getGoogleSprite(index, sprite, display_height) {
 function setupPokemonMarker(item) {
 
     // Scale icon size up with the map exponentially
-    var icon_size = 2 + (map.getZoom()-3) * (map.getZoom()-3) * .2 + Store.get('iconSizeModifier');
+    var icon_size = 2 + (map.getZoom() - 3) * (map.getZoom() - 3) * .2 + Store.get('iconSizeModifier');
     var pokemon_index = item.pokemon_id - 1;
     var sprite = pokemon_sprites[Store.get('pokemonIcons')] || pokemon_sprites['highres']
     var icon = getGoogleSprite(pokemon_index, sprite, icon_size);
@@ -541,7 +546,7 @@ function setupPokemonMarker(item) {
 
     if (notifiedPokemon.indexOf(item.pokemon_id) > -1) {
         if (Store.get('playSound')) {
-          audio.play();
+            audio.play();
         }
 
         sendNotification('A wild ' + item.pokemon_name + ' appeared!', 'Click to load map', 'static/icons/' + item.pokemon_id + '.png', item.latitude, item.longitude);
@@ -587,7 +592,7 @@ function setupPokestopMarker(item) {
 
 
     marker.infoWindow = new google.maps.InfoWindow({
-        content: pokestopLabel(!!item.lure_expiration, item.last_modified, item.active_pokemon_id, item.latitude +.003, item.longitude+ .003),
+        content: pokestopLabel(!!item.lure_expiration, item.last_modified, item.active_pokemon_id, item.latitude + .003, item.longitude + .003),
         disableAutoPan: true
     });
 
@@ -595,17 +600,17 @@ function setupPokestopMarker(item) {
     return marker;
 };
 
-function getColorByDate(value){
+function getColorByDate(value) {
     //Changes the Color from Red to green over 15 mins
     var diff = (Date.now() - value) / 1000 / 60 / 15;
 
-    if(diff > 1){
+    if (diff > 1) {
         diff = 1;
     }
 
     //value from 0 to 1 - Green to Red
-    var hue=((1-diff)*120).toString(10);
-    return ["hsl(",hue,",100%,50%)"].join("");
+    var hue = ((1 - diff) * 120).toString(10);
+    return ["hsl(", hue, ",100%,50%)"].join("");
 }
 
 function setupScannedMarker(item) {
@@ -614,7 +619,7 @@ function setupScannedMarker(item) {
     var marker = new google.maps.Circle({
         map: map,
         center: circleCenter,
-        radius: 100,    // 10 miles in metres
+        radius: 100, // 10 miles in metres
         fillColor: getColorByDate(item.last_modified),
         strokeWeight: 1
     });
@@ -629,7 +634,7 @@ function setupScannedMarker(item) {
 };
 
 function clearSelection() {
-    if (document.selection ) {
+    if (document.selection) {
         document.selection.empty();
     } else if (window.getSelection) {
         window.getSelection().removeAllRanges();
@@ -666,7 +671,7 @@ function clearStaleMarkers() {
     $.each(map_data.pokemons, function(key, value) {
 
         if (map_data.pokemons[key]['disappear_time'] < new Date().getTime() ||
-                excludedPokemon.indexOf(map_data.pokemons[key]['pokemon_id']) >= 0) {
+            excludedPokemon.indexOf(map_data.pokemons[key]['pokemon_id']) >= 0) {
             map_data.pokemons[key].marker.setMap(null);
             delete map_data.pokemons[key];
         }
@@ -675,7 +680,7 @@ function clearStaleMarkers() {
     $.each(map_data.lure_pokemons, function(key, value) {
 
         if (map_data.lure_pokemons[key]['disappear_time'] < new Date().getTime() ||
-                excludedPokemon.indexOf(map_data.lure_pokemons[key]['pokemon_id']) >= 0) {
+            excludedPokemon.indexOf(map_data.lure_pokemons[key]['pokemon_id']) >= 0) {
             map_data.lure_pokemons[key].marker.setMap(null);
             delete map_data.lure_pokemons[key];
         }
@@ -691,20 +696,20 @@ function clearStaleMarkers() {
 };
 
 function clearOutOfBoundsMarkers(markers) {
-  $.each(markers, function(key, value) {
-      var marker = markers[key].marker;
-      if(typeof marker.getPosition === 'function') {
-        if(!map.getBounds().contains(marker.getPosition())) {
-          markers[key].marker.setMap(null);
-          delete markers[key];
+    $.each(markers, function(key, value) {
+        var marker = markers[key].marker;
+        if (typeof marker.getPosition === 'function') {
+            if (!map.getBounds().contains(marker.getPosition())) {
+                markers[key].marker.setMap(null);
+                delete markers[key];
+            }
+        } else if (typeof marker.getCenter === 'function') {
+            if (!map.getBounds().contains(marker.getCenter())) {
+                markers[key].marker.setMap(null);
+                delete markers[key];
+            }
         }
-      } else if(typeof marker.getCenter === 'function') {
-        if(!map.getBounds().contains(marker.getCenter())) {
-          markers[key].marker.setMap(null);
-          delete markers[key];
-        }
-      }
-  });
+    });
 }
 
 function loadRawData() {
@@ -770,8 +775,7 @@ function processPokestops(i, item) {
         if (item.marker) item.marker.setMap(null);
         item.marker = setupPokestopMarker(item);
         map_data.pokestops[item.pokestop_id] = item;
-    }
-    else {
+    } else {
         item2 = map_data.pokestops[item.pokestop_id];
         if (!!item.lure_expiration != !!item2.lure_expiration || item.active_pokemon_id != item2.active_pokemon_id) {
             item.marker.setMap(null);
@@ -830,8 +834,7 @@ function processGyms(i, item) {
                 disableAutoPan: true
             });
         }
-    }
-    else { // add marker to map and item to dict
+    } else { // add marker to map and item to dict
         if (item.marker) item.marker.setMap(null);
         item.marker = setupGymMarker(item);
         map_data.gyms[item.gym_id] = item;
@@ -846,9 +849,8 @@ function processScanned(i, item) {
     }
 
     if (item.scanned_id in map_data.scanned) {
-        map_data.scanned[item.scanned_id].marker.setOptions({fillColor: getColorByDate(item.last_modified)});
-    }
-    else { // add marker to map and item to dict
+        map_data.scanned[item.scanned_id].marker.setOptions({ fillColor: getColorByDate(item.last_modified) });
+    } else { // add marker to map and item to dict
         if (item.marker) item.marker.setMap(null);
         item.marker = setupScannedMarker(item);
         map_data.scanned[item.scanned_id] = item;
@@ -859,7 +861,7 @@ function processScanned(i, item) {
 
 function updateMap() {
 
-    loadRawData().done(function (result) {
+    loadRawData().done(function(result) {
         $.each(result.pokemons, processPokemons);
         $.each(result.pokestops, processPokestops);
         $.each(result.pokestops, processLuredPokemon);
@@ -878,7 +880,7 @@ function updateMap() {
 
 function redrawPokemon(pokemon_list) {
     $.each(pokemon_list, function(key, value) {
-        var item =  pokemon_list[key];
+        var item = pokemon_list[key];
         var new_marker = setupPokemonMarker(item);
         item.marker.setMap(null);
         pokemon_list[key].marker = new_marker;
@@ -925,7 +927,7 @@ function sendNotification(title, text, icon, lat, lng) {
             sound: 'sounds/ding.mp3'
         });
 
-        notification.onclick = function () {
+        notification.onclick = function() {
             window.focus();
             notification.close();
 
@@ -965,16 +967,16 @@ function myLocationButton() {
     locationButton.addEventListener('click', function() {
         var currentLocation = document.getElementById('current-location');
         var imgX = '0';
-        var animationInterval = setInterval(function(){
-            if(imgX == '-18') imgX = '0';
+        var animationInterval = setInterval(function() {
+            if (imgX == '-18') imgX = '0';
             else imgX = '-18';
-            currentLocation.style.backgroundPosition = imgX+'px 0';
+            currentLocation.style.backgroundPosition = imgX + 'px 0';
         }, 500);
-        if(navigator.geolocation) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 locationMarker.setVisible(true);
-                locationMarker.setOptions({'opacity': 1});
+                locationMarker.setOptions({ 'opacity': 1 });
                 locationMarker.setPosition(latlng);
                 map.setCenter(latlng);
                 clearInterval(animationInterval);
@@ -991,8 +993,7 @@ function myLocationButton() {
                     }
                 );
             });
-        }
-        else{
+        } else {
             clearInterval(animationInterval);
             currentLocation.style.backgroundPosition = '0px 0px';
         }
@@ -1006,7 +1007,7 @@ function addMyLocationButton() {
     locationMarker = new google.maps.Marker({
         map: map,
         animation: google.maps.Animation.DROP,
-        position: {lat: center_lat, lng: center_lng},
+        position: { lat: center_lat, lng: center_lng },
         icon: {
             path: google.maps.SymbolPath.CIRCLE,
             fillOpacity: 1,
@@ -1024,7 +1025,7 @@ function addMyLocationButton() {
     google.maps.event.addListener(map, 'dragend', function() {
         var currentLocation = document.getElementById('current-location');
         currentLocation.style.backgroundPosition = '0px 0px';
-        locationMarker.setOptions({'opacity': 0.5});
+        locationMarker.setOptions({ 'opacity': 0.5 });
     });
 }
 
@@ -1056,7 +1057,7 @@ function centerMap(lat, lng, zoom) {
 // Page Ready Exection
 //
 
-$(function () {
+$(function() {
     if (!Notification) {
         console.log('could not load notifications');
         return;
@@ -1067,10 +1068,10 @@ $(function () {
     }
 });
 
-$(function () {
+$(function() {
 
     $selectExclude = $("#exclude-pokemon");
-    $selectNotify  = $("#notify-pokemon");
+    $selectNotify = $("#notify-pokemon");
 
     // Load pokemon names and populate lists
     $.getJSON("static/locales/pokemon." + language + ".json").done(function(data) {
@@ -1079,7 +1080,7 @@ $(function () {
         idToPokemon = data;
 
         $.each(data, function(key, value) {
-            pokeList.push( { id: key, text: value } );
+            pokeList.push({ id: key, text: value });
         });
 
         // setup the filter lists
@@ -1093,12 +1094,12 @@ $(function () {
         });
 
         // setup list change behavior now that we have the list to work from
-        $selectExclude.on("change", function (e) {
+        $selectExclude.on("change", function(e) {
             excludedPokemon = $selectExclude.val().map(Number);
             clearStaleMarkers();
             Store.set('remember_select_exclude', excludedPokemon);
         });
-        $selectNotify.on("change", function (e) {
+        $selectNotify.on("change", function(e) {
             notifiedPokemon = $selectNotify.val().map(Number);
             Store.set('remember_select_notify', notifiedPokemon);
         });
@@ -1112,34 +1113,34 @@ $(function () {
     window.setInterval(updateLabelDiffTime, 1000);
     window.setInterval(updateMap, 5000);
     window.setInterval(function() {
-      if(navigator.geolocation && Store.get('geoLocate')) {
-        navigator.geolocation.getCurrentPosition(function (position){
-          var baseURL = location.protocol + "//" + location.hostname + (location.port ? ":"+location.port: "");
-          lat = position.coords.latitude;
-          lon = position.coords.longitude;
+        if (navigator.geolocation && Store.get('geoLocate')) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var baseURL = location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "");
+                lat = position.coords.latitude;
+                lon = position.coords.longitude;
 
-          //the search function makes any small movements cause a loop. Need to increase resolution
-          if(getPointDistance(marker.getPosition(), (new google.maps.LatLng(lat, lon))) > 40) //changed to 40 from PR notes, less jitter.
-          {
-            $.post(baseURL + "/next_loc?lat=" + lat + "&lon=" + lon).done(function(){
-              var center = new google.maps.LatLng(lat, lon);
-              map.panTo(center);
-              marker.setPosition(center);
+                //the search function makes any small movements cause a loop. Need to increase resolution
+                if (getPointDistance(searchMarker.getPosition(), (new google.maps.LatLng(lat, lon))) > 40) //changed to 40 from PR notes, less jitter.
+                {
+                    $.post(baseURL + "/next_loc?lat=" + lat + "&lon=" + lon).done(function() {
+                        var center = new google.maps.LatLng(lat, lon);
+                        map.panTo(center);
+                        marker.setPosition(center);
+                    });
+                }
+
             });
-          }
-
-        });
-      }
+        }
     }, 1000);
 
 
     function buildSwitchChangeListener(data, data_type, storageKey) {
-        return function () {
+        return function() {
             Store.set(storageKey, this.checked);
             if (this.checked) {
                 updateMap();
             } else {
-                $.each(data[data_type], function (key, value) {
+                $.each(data[data_type], function(key, value) {
                     data[data_type][key].marker.setMap(null);
                 });
                 data[data_type] = {}
@@ -1170,10 +1171,10 @@ $(function () {
         redrawPokemon(map_data.lure_pokemons);
     });
 
-    $('#geoloc-switch').change(function() {  
-        if(!navigator.geolocation)  
-            this.checked = false;  
-        else   
+    $('#geoloc-switch').change(function() {
+        if (!navigator.geolocation)
+            this.checked = false;
+        else
             Store.set('geoLocate', this.checked);
     });
 
